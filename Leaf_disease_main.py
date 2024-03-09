@@ -25,6 +25,14 @@ config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 # ########################################################
 
+# Check TensorFlow for GPU availability
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+if tf.config.list_physical_devices('GPU'):
+    print("TensorFlow will run on GPU")
+else:
+    print("TensorFlow will run on CPU")
+
+
 
 def main(item, obj, model_name,dataset_dir,save_path,saveornot, fig_size = 256,  bat_si = 16,INIT_LR = 0.001, epo = 10000, times = 10, op_z = "Adamax", TF_weights=None,balance_weight = [0.1,0.1,0.4,0.5]):
     plus = "_"
@@ -149,14 +157,17 @@ def main(item, obj, model_name,dataset_dir,save_path,saveornot, fig_size = 256, 
             y_train_cat=tf.one_hot(y_train,categ)  #Tensorflow 2
             # y_test_cat=tf.one_hot(y_total_test,categ)
             
-            #fit the model i.e. training the model and batch size can be varies
-            H=model.fit(x_train,y_train_cat,batch_size=bat_si, #16,
-                      epochs=epo,verbose=1,
-                      validation_split=0.1,
-                       shuffle=True,
-                       callbacks=[es,mc]
-                      )
-        
+            try:
+                #fit the model i.e. training the model and batch size can be varies
+                H=model.fit(x_train,y_train_cat,batch_size=bat_si, #16,
+                        epochs=epo,verbose=1,
+                        validation_split=0.1,
+                        shuffle=True,
+                        callbacks=[es,mc]
+                        )
+            except tf.errors.ResourceExhaustedError:
+                print("Failed due to GPU memory resource exhaustion.")
+
             # ModelCheck_model=models.load_model(dir_save+'model_save/ModelCheckpoint/'+model_name+'_ModelCheck_'+str(fig_size)+'.h5')
             ModelCheck_model=models.load_model(dir_save+'model_save/ModelCheckpoint/'+model_name+'_ModelCheck_'+str(fig_size)+'_d_'+DEVICES+'.h5')
             

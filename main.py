@@ -7,8 +7,8 @@ from Leaf Images: Multi-prediction Approaches".
 Please modify the parameters at here, then run main.py.
 '''
 
-dataset_dir = '/home/user/Leaf_diseases/Datasets/'  # please change the path of the datasets. 
-save_path = '/home/user/Leaf_diseases/test_model/'    # please change the path of results and model will be saved.
+dataset_dir = './Datasets/'  # please change the path of the datasets. 
+save_path = './test_model/'    # please change the path of results and model will be saved.
 
 
 # TF_weights='imagenet'
@@ -28,17 +28,17 @@ obj = "new_model"
 # obj = "MOON"    # PyTorch
 
 
-item =  "plant_village"
+# item =  "plant_village" # original default
 # item = "plant_leaves"
 # item =  "PlantDoc"
-# item = "PlantDoc_original"
+item = "PlantDoc_original"
 
 saveornot = 'save'
 # saveornot = 'not'
 
-bat_si = 16   # batch_size
-epo = 10000 # epochs
-times = 10
+bat_si = 3   # batch_size (originally 16)
+epo = 10 # epochs (originally 10000)
+times = 5   # originally 10
 
 # model_name =  'CNN'
 # model_name ='AlexNet'
