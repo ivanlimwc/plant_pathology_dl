@@ -7,12 +7,14 @@ from Leaf Images: Multi-prediction Approaches".
 Please modify the parameters at here, then run main.py.
 '''
 
-dataset_dir = './Datasets/'  # please change the path of the datasets. 
-save_path = './test_model/'    # please change the path of results and model will be saved.
+dataset_dir = '/home/wlim/plant/Datasets/'  # please change the path of the datasets. 
+save_path = '/home/wlim/plant/testrun20240322/'    # please change the path of results and model will be saved.
 
+import time
+start_time = time.time()  
 
-# TF_weights='imagenet'
-TF_weights=None
+TF_weights='imagenet'
+# TF_weights=None
 
 fig_size = 256
 INIT_LR = 0.001
@@ -36,9 +38,9 @@ item = "PlantDoc_original"
 saveornot = 'save'
 # saveornot = 'not'
 
-bat_si = 3   # batch_size (originally 16)
-epo = 10 # epochs (originally 10000)
-times = 5   # originally 10
+bat_si = 16   # batch_size (originally 16)
+epo = 20000 # epochs (originally 10000)
+times = 10   # originally 10
 
 # model_name =  'CNN'
 # model_name ='AlexNet'
@@ -71,3 +73,8 @@ if __name__ == '__main__':
         Leaf_disease_main.main(item, obj, model_name,dataset_dir,save_path,saveornot,fig_size, bat_si, INIT_LR, epo, times, op_z, TF_weights, balance_weight)
 
 
+end_time = time.time()  
+duration = end_time - start_time  
+print(f"The program took {duration} seconds to run.")  
+print(start_time)
+print(end_time)

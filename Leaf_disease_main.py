@@ -476,14 +476,14 @@ def main(item, obj, model_name,dataset_dir,save_path,saveornot, fig_size = 256, 
                 pd.DataFrame(y_disease_pred_t).to_csv(path_save +'/y_disease_pred_t_'+item + '_'+obj+'_'+model_name+'_.csv')
                 pd.DataFrame(y_total_pred_t).to_csv(path_save +'/y_total_pred_t_'+item + '_'+obj+'_'+model_name+'.csv')           
      
-        
-            # from tensorflow.keras.utils import plot_model
-            # plot_model(model, to_file = path_save+'/'+item + '_'+obj+'_'+model_name+'.png',
-            #            show_shapes=True,show_dtype=True,show_layer_names=True)
+            # Original comment 480 to 486
+            from tensorflow.keras.utils import plot_model
+            plot_model(model, to_file = path_save+'/'+item + '_'+obj+'_'+model_name+'.png',
+                       show_shapes=True,show_dtype=True,show_layer_names=True)
             
-            # with open(path_save + '/model_summary.txt', 'w') as f:
-            #     model.summary(print_fn=lambda x: f.write(x + '\n'))
-            # model.save(path_save+'/'+item + '_'+obj+'_'+model_name+'_multi_tasks.h5')
+            with open(path_save + '/model_summary.txt', 'w') as f:
+                model.summary(print_fn=lambda x: f.write(x + '\n'))
+            model.save(path_save+'/'+item + '_'+obj+'_'+model_name+'_multi_tasks.h5')
         
             print('Saved to ', path_save)
     
